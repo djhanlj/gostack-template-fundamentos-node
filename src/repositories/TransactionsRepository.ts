@@ -49,16 +49,6 @@ class TransactionsRepository {
 
   public create({ title, value, type }: CreateTransactionDTO): Transaction {
     const transaction = new Transaction({ title, value, type });
-    const balance = this.getBalance();
-
-    if (!['income', 'outcome'].includes(type)) {
-      throw Error('Não é type permitido');
-    }
-
-    if (balance.total < value && type === 'outcome') {
-      throw Error('Saldo insulficiente');
-    }
-
     this.transactions.push(transaction);
     return transaction;
   }
